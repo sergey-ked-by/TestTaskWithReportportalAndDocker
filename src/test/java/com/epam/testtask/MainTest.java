@@ -1,5 +1,8 @@
 package com.epam.testtask;
 
+import com.epam.reportportal.junit5.ReportPortalExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import baseEntities.BaseAPITest;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -15,8 +18,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MainTest extends BaseAPITest {
     private static final Logger LOGGER = LogManager.getLogger(MainTest.class);
 
+    @ExtendWith(ReportPortalExtension.class)
     @Test
     public void FindPetByIdPositiveTest() {
+        LOGGER.info("MainTest");
         String endPoint = "/pet/3";
 
         Response response = given()
@@ -26,6 +31,7 @@ public class MainTest extends BaseAPITest {
         assertThat(statusCode).isEqualTo(200);
     }
 
+    @ExtendWith(ReportPortalExtension.class)
     @Test
     public void FindPetByStatusPositiveTest() {
         String endPoint = "/pet/findByStatus?status=available";
@@ -39,6 +45,7 @@ public class MainTest extends BaseAPITest {
         assertThat(responseBody).contains("available");
     }
 
+    @ExtendWith(ReportPortalExtension.class)
     @Test
     public void CreateUserPositiveTest() {
         String endPoint = "user/createWithList";
