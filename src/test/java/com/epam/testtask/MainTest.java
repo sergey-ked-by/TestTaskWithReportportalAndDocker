@@ -25,7 +25,7 @@ public class MainTest extends BaseAPITest {
         String endPoint = "/pet/3";
 
         Response response = given()
-                .when().get(properties.getURL()  + endPoint);
+                .when().get(endPoint);
 
         int statusCode = response.getStatusCode();
         assertThat(statusCode).isEqualTo(200);
@@ -37,7 +37,7 @@ public class MainTest extends BaseAPITest {
         String endPoint = "/pet/findByStatus?status=available";
 
         Response response = given()
-                .when().get(properties.getURL() + endPoint);
+                .when().get(endPoint);
 
         int statusCode = response.getStatusCode();
         assertThat(statusCode).isEqualTo(200);
@@ -58,16 +58,27 @@ public class MainTest extends BaseAPITest {
                 .email("auto_" + RandomStringUtils.randomAlphabetic(5) + "@testmail.com")
                 .password(RandomStringUtils.randomAlphabetic(10))
                 .phone("+375121234567")
-                .userStatus(0)
+                .userStatus(1)
                 .build();
 
-        Response response = given()
+//        JSONObject request = new JSONObject();
+//        request.put("id", newUser.getId());
+//        request.put("username", newUser.getUsername());
+//        request.put("firstName", newUser.getFirstName());
+//        request.put("lastName", newUser.getLastName());
+//        request.put("email", newUser.getEmail());
+//        request.put("password", newUser.getPassword());
+//        request.put("phone", newUser.getPhone());
+//        request.put("userStatus", newUser.getUserStatus());
+
+        given()
                 .contentType(ContentType.JSON)
                 .body(newUser)
-                .when().post(properties.getURL() + endPoint);
+                .when().post(endPoint)
+                .then().statusCode(200);
 
-        int statusCode = response.getStatusCode();
-        assertThat(statusCode).isEqualTo(200);
+//        int statusCode = response.getStatusCode();
+//        assertThat(statusCode).isEqualTo(200);
     }
 
 }
